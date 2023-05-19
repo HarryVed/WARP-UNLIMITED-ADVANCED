@@ -1,29 +1,30 @@
-FROM python:3.9-alpine
+FROM ubuntu:22.04
+
 
 WORKDIR /app
+RUN chmod 777 /app	
 
-# Install necessary packages
-RUN apk add --no-cache curl && \
-    apk add --no-cache bash && \
-    apk add --no-cache make && \
-    apk add --no-cache gcc && \
-    apk add --no-cache g++ && \
-    apk add --no-cache linux-headers && \
-    apk add --no-cache binutils-gold && \
-    apk add --no-cache libstdc++
 
-# Install Node.js
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
-    apk add --no-cache nodejs
+ENV TZone=Asia/Kolkata	
+RUN ln -snf "/usr/share/zoneinfo/$TZone" /etc/localtime	
+RUN echo "$TZone" > /etc/timezone	
+
+RUN apt-get update	
+RUN apt-get install -y tzdata	
+RUN apt-get -qq update	
+RUN apt-get -qq install -y git python3 python3-pip curl
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash
+RUN apt-get install -y nodejs
 RUN node --version && npm --version
 
-COPY requirements.txt ./
 
-RUN pip install -r requirements.txt
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
+
 
 COPY . .
 
 RUN chmod +x run.sh
 
-CMD ["sh","run.sh"]
+CMD ["bash","run.sh"]
 # CMD ["python3","warp-plus.py"]
