@@ -3,7 +3,7 @@ FROM python:3.9-alpine
 WORKDIR /app
 
 RUN apk add --no-cache curl
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash
+RUN curl -sL https://deb.nodesource.com/setup_16.x | sh
 RUN apk add --no-cache nodejs
 RUN node --version && npm --version
 
