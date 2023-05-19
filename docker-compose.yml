@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   warp-unlimited:
-    image: ghcr.io/thecaduceus/warp-unlimited-docker:okteto
+    build: .
     container_name: warp-unlimited-okteto
     environment:
       - WARP_CLIENT_ID=${WARP_CLIENT_ID}
