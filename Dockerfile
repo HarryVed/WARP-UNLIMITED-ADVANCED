@@ -3,7 +3,7 @@ FROM python:3.9-alpine
 WORKDIR /app
 
 RUN apk add --no-cache curl
-RUN curl -sL https://deb.nodesource.com/setup_16.x | sh
+RUN curl -sL https://deb.nodesource.com/setup_18.x | sh
 RUN apk add --no-cache nodejs
 RUN node --version && npm --version
 
@@ -15,5 +15,5 @@ COPY . .
 
 RUN chmod +x run.sh
 
-CMD ["bash","run.sh"]
+CMD ["sh","run.sh"]
 # CMD ["python3","warp-plus.py"]
